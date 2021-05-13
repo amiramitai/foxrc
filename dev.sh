@@ -14,18 +14,24 @@ function live_grep() {
     # press ctrl+v to open with vim
     local tmpfile=$(mktemp /tmp/livegrep.data.XXXXXX)
     local editorfile=$(mktemp /tmp/livegrep.editor.XXXXXX)
+    # break on error
+    set -e
+    # allow ctrl-c shortcut for vscode
+    trap "" INT
     local selected=$(printf '' | fzf --ansi --header='Type to Live-grep' --phony --no-height \
+                                     --header "Ctrl-G: fzf results, Ctrl-V: open with vim, Ctrl-C: open with code, Enter: drop to selection to commandline" \
                                      --bind "change:execute-silent(rg -i --color=always --vimgrep {q} > ${tmpfile})+reload(cat ${tmpfile})" \
                                      --bind "ctrl-v:execute-silent(printf 'vim' > $editorfile)+accept" \
                                      --bind "ctrl-g:execute-silent(printf 'fzf' > $editorfile)+accept" \
-                                     --bind "ctrl-s:execute-silent(printf 'code' > $editorfile)+accept")
+                                     --bind "ctrl-c:execute-silent(printf 'code' > $editorfile)+accept")
     local editor=$(cat $editorfile)
     case "$editor" in
         "fzf")
             rm -rf $editorfile
             selected=$(cat $tmpfile | fzf --ansi \
+                                          --header "Ctrl-V: open with vim, Ctrl-C: open with code, Enter: drop to selection to commandline" \
                                           --bind "ctrl-v:execute-silent(printf 'vim' > $editorfile)+accept" \
-                                          --bind "ctrl-s:execute-silent(printf 'code' > $editorfile)+accept");
+                                          --bind "ctrl-c:execute-silent(printf 'code' > $editorfile)+accept");
         ;;
         *)
     esac
