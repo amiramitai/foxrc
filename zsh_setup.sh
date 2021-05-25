@@ -19,3 +19,12 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 sed -i 's/plugins=(.*)/plugins=(git zsh-autosuggestions zsh-completions zsh-syntax-highlighting)/g' ~/.zshrc
 
+git clone https://github.com/amiramitai/foxrc.git ~/foxrc
+echo 'source ~/foxrc/dev.sh' >> ~/.zshrc
+
+git clone https://github.com/garabik/grc /tmp/grc
+cd /tmp/grc
+sh install.sh
+
+mkdir -p ~/.grc
+cp ~/foxrc/grc.conf ~/foxrc/auto
