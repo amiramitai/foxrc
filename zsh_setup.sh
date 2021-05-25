@@ -27,4 +27,4 @@ cd /tmp/grc
 sh install.sh
 
 mkdir -p ~/.grc
-cp ~/foxrc/grc.conf ~/foxrc/auto
+cp ~/foxrc/grc.conf ~/.grc/auto
