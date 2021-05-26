@@ -9,8 +9,11 @@ sed -i 's#ZSH_THEME=\".*\"#ZSH_THEME=\"powerlevel10k/powerlevel10k\"#g' ~/.zshrc
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
-
-(echo 'export LC_ALL=en_US.UTF-8' && echo 'export LANG=en_US.UTF-8' && cat ~/.zshrc) > /tmp/.zshrc
+rm -rf /tmp/.zshrc
+echo 'export LC_ALL=en_US.UTF-8' >> /tmp/.zshrc
+echo 'export LANG=en_US.UTF-8' >> /tmp/.zshrc
+echo "alias grc='grc -s -e -c auto'" >> /tmp/.zshrc
+cat ~/.zshrc >> ~/.zshrc
 cp /tmp/.zshrc ~/.zshrc
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
