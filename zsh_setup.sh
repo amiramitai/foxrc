@@ -31,3 +31,6 @@ sh install.sh
 mkdir -p ~/.grc
 cp ~/foxrc/grc.conf ~/.grc/auto
 echo "alias grc='grc -s -e -c auto'" >> ~/.zshrc
+
+# configure tmux colors
+echo 'set -g default-terminal "screen-256color"' >> ~/.tmux.conf
